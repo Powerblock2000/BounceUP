@@ -30,6 +30,10 @@ window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/PapaSmurf/Documents/bounce-back-game/Cover/cover.png"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/bettertooltips/plugin.cfg", "res://addons/masterinv/plugin.cfg", "res://addons/powerblockpluginhelper/plugin.cfg")

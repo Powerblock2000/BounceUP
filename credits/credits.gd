@@ -19,6 +19,7 @@ func start_credits(time : float) -> void:
 	await get_tree().create_timer(1).timeout
 	time_l.text = "Your time was: %s" % format_time(IntersceneSaveManager.time)
 	button.disabled = false
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _ready() -> void:
 	start_credits.call_deferred(44.3)
