@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dfjel703du7lb"]
+
+[ext_resource type="Script" uid="uid://i0ubyux0true" path="res://addons/masterinv/ItemManagerPanel/ItemDisplay/item_display.gd" id="1_1ebm3"]
+[ext_resource type="Script" uid="uid://wxvhim3gg4c4" path="res://addons/masterinv/ItemManagerPanel/ItemDisplay/item_texture.gd" id="1_u5pqw"]
+[ext_resource type="Texture2D" uid="uid://bpxlawqr3ofg6" path="res://addons/masterinv/ItemManagerPanel/Edit.svg" id="2_1ebm3"]
+[ext_resource type="Texture2D" uid="uid://bih6rxewc08ii" path="res://addons/masterinv/ItemManagerPanel/ImageNotFound.svg" id="2_r51jm"]
+[ext_resource type="Texture2D" uid="uid://2q0wngkpoml3" path="res://addons/masterinv/ItemManagerPanel/Remove.svg" id="5_cs38f"]
+
+[node name="ItemDisplay" type="PanelContainer" unique_id=1469384785]
+script = ExtResource("1_1ebm3")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1079080129]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=434817836]
+layout_mode = 2
+
+[node name="ItemTexture" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1893899462]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_r51jm")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("1_u5pqw")
+
+[node name="EditItem" type="Button" parent="MarginContainer/VBoxContainer/ItemTexture" unique_id=2003752760]
+visible = false
+modulate = Color(0.91764706, 0.7882353, 0.40784314, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("2_1ebm3")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ItemName" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1427325355]
+layout_mode = 2
+text = "..."
+horizontal_alignment = 1
+text_overrun_behavior = 5
+
+[node name="Edit" type="MarginContainer" parent="." unique_id=1997042983]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 92
+
+[node name="TextureRect" type="TextureRect" parent="Edit" unique_id=798123610]
+modulate = Color(0.91764706, 0.7882353, 0.40784314, 1)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_scale = Vector2(2, 2)
+offset_transform_rotation = 0.7853982
+texture = ExtResource("2_1ebm3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Delete" type="MarginContainer" parent="." unique_id=1524192984]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = -9
+theme_override_constants/margin_top = -9
+theme_override_constants/margin_right = 41
+theme_override_constants/margin_bottom = 71
+
+[node name="Delete" type="Button" parent="Delete" unique_id=306866895]
+modulate = Color(1, 0.37254903, 0.37254903, 1)
+layout_mode = 2
+icon = ExtResource("5_cs38f")
+flat = true
+icon_alignment = 1
+expand_icon = true

@@ -1,0 +1,289 @@
+[gd_scene format=3 uid="uid://bub7luv4a4qgj"]
+
+[ext_resource type="Texture2D" uid="uid://mb8ikit1c6hq" path="res://assets/proto_textures/PNG/Green/texture_04.png" id="1_rdtsr"]
+[ext_resource type="Script" uid="uid://dmoeby3ynfq5t" path="res://enemy/boss_cutscene.gd" id="1_yc135"]
+[ext_resource type="PackedScene" uid="uid://buuyhwksyfvg4" path="res://assets/banana_lord/scene.gltf" id="2_yc135"]
+[ext_resource type="Texture2D" uid="uid://bf4uvo63wmatx" path="res://assets/skyboxes/Skyboxes/skybox-space-band.png" id="3_di453"]
+[ext_resource type="AudioStream" uid="uid://bsfj0diy84te1" path="res://assets/music/boss entrsance.mp3" id="4_dk74m"]
+[ext_resource type="FontFile" uid="uid://4oibaljodd13" path="res://assets/fonts/jim_nightshade/JimNightshade-Regular.ttf" id="5_u2qp7"]
+[ext_resource type="PackedScene" uid="uid://4j6v6xm33c7t" path="res://assets/cube_pets/Models/GLB format/animal-cat.glb" id="7_k0iki"]
+[ext_resource type="PackedScene" uid="uid://uyib2fg5nn1p" path="res://assets/cube_pets/Models/GLB format/animal-chick.glb" id="8_t07ad"]
+[ext_resource type="PackedScene" uid="uid://ilb5h71jg6x6" path="res://assets/cube_pets/Models/GLB format/animal-caterpillar.glb" id="9_uryv4"]
+[ext_resource type="PackedScene" uid="uid://coapon3t7pyba" path="res://assets/cube_pets/Models/GLB format/animal-bee.glb" id="10_ifv8r"]
+[ext_resource type="PackedScene" uid="uid://dl4kwfkpumnsl" path="res://assets/cube_pets/Models/GLB format/animal-cow.glb" id="11_o5fid"]
+[ext_resource type="PackedScene" uid="uid://bf4tqh02oyvs7" path="res://assets/space_gun/scene.gltf" id="12_t07ad"]
+
+[sub_resource type="Animation" id="Animation_t8hin"]
+resource_name = "BossIntro"
+length = 68.333336
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2),
+"points": PackedFloat32Array(-3.1288662, -0.25, 0, 0.25, 0, -2.0758305, -0.16666667, -0.17550597, 0, 0, -2.4305077, -4.0111113, 0.13788466, 0.15555573, -0.005347333, -4.1216846, -0.053180378, 0.028758096, 0.10237535, -0.055361025, -2.9352224, -4.166667, 0.14323199, 0, 0, -4.2840667, -1.8876371, 0.22480738, 0, 0, -4.284067, -0.44569588, 0, 0.595, 0, -13.704883, -3.8380778, 0, 0.805, 0, -9.729046, -0.663, 0, 0.805, 0, -8.615688, -0.4037094, -0.18555959, 0, 0, -5.2651033, -0.3500964, -0.55843085, 0, 0),
+"times": PackedFloat32Array(0, 1, 25.066668, 25.38575, 26.000002, 37.325825, 40, 44.05614, 45.62096, 63.066666, 65.167244)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2),
+"points": PackedFloat32Array(53.90695, -0.25, 0, 0.25, 0, 53.85734, -0.16666667, 0.008268356, 0, 0, 54.056564, -4.0111113, -0.04116689, 0.15555573, 0.0015965016, 54.113922, -4.166667, -0.04276339, 0, 0, 54.1298, -0.042069435, -0.0026461282, 0, 0, 54.1298, -0.042069435, -0.0026461282, 0, 0, 56.014008, -1.9900125, -0.3140348, 0, 0, 56.014008, -1.9900125, -0.3140348, 0, 0, 56.014008, -0.44569588, 0, 0, 0, 53.794487, -0.6760235, 0.3699201, 0, 0, 53.71911, -0.26080322, 0.01256307, 0, 0, 55.886562, -0.4037094, -0.3612423, 0, 0, 53.266075, -0.3500964, 0.43674788, 0, 0),
+"times": PackedFloat32Array(0, 1, 25.066668, 25.133333, 25.38575, 30.133333, 37.325825, 39.559612, 40, 44.05614, 45.62096, 63.066666, 65.167244)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2),
+"points": PackedFloat32Array(-5.9352636, -0.25, 0, 0.25, 0, -4.199467, -0.005555789, -0.0048352266, 0.15555573, 0.1353808, -3.2091427, -0.13333353, -0.14021604, 0, 0, -1.8721886, -0.042069435, -0.22282569, 0, 0, -1.8721886, -0.042069435, -0.22282569, 0, 0, 0.71271133, -1.9900125, -0.43081665, 0, 0, 0.71271133, -1.9900125, -0.43081665, 0, 0, 0.71271133, -0.44569588, 0, 0, 0, -4.0883656, -0.6760235, 0.8001795, 0, 0, -6.199724, -0.26080322, 0.35189313, 0, 0, 2.1329517, -0.4037094, -1.3887794, 0, 0, 5.155435, -0.3500964, -0.5037472, 0, 0),
+"times": PackedFloat32Array(0, 25.033333, 25.133333, 25.38575, 30.133333, 37.325825, 39.559612, 40, 44.05614, 45.62096, 63.066666, 65.167244)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 25.033333, 25.133333, 25.38575, 30.133333, 37.325825, 39.559612, 40, 44.05614, 45.62096, 63.066666, 65.167244),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.07497232, 2.936514, 0), Vector3(0.017210241, 1.7865652, 0), Vector3(0.22173376, 0.11780302, 0), Vector3(-0.08806216, -0.48433563, 0), Vector3(-0.08806216, -0.48433563, 0), Vector3(-0.5418479, -0.48433563, 0), Vector3(-0.5418479, -0.48433563, 0), Vector3(-0.48076156, 1.1650003, 0), Vector3(-0.13605858, -0.6152336, 0), Vector3(-0.061882026, -2.7750752, 0), Vector3(-0.46767116, -0.10472289, 0), Vector3(-0.14478548, -1.3744515, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Control/Label:visible_ratio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(32.533333, 34.833332),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Control/Label:text")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(39.833332, 40, 47),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["- Lord Banana -", "- Banana Army -", ""]
+}
+
+[sub_resource type="Animation" id="Animation_k0iki"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-3.1288662, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(53.90695, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-5.9352636, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.07497232, 2.936514, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Control/Label:visible_ratio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Control/Label:text")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["- Lord Banana -"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t07ad"]
+_data = {
+&"BossIntro": SubResource("Animation_t8hin"),
+&"RESET": SubResource("Animation_k0iki")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uryv4"]
+albedo_texture = ExtResource("1_rdtsr")
+uv1_triplanar = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ifv8r"]
+panorama = ExtResource("3_di453")
+
+[sub_resource type="Sky" id="Sky_oo1xa"]
+sky_material = SubResource("PanoramaSkyMaterial_ifv8r")
+
+[sub_resource type="Environment" id="Environment_o5fid"]
+background_mode = 2
+sky = SubResource("Sky_oo1xa")
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.55455405, 0.55455387, 0.5545543, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5fgk8"]
+font = ExtResource("5_u2qp7")
+font_size = 59
+
+[node name="BossCutscene" type="Node3D" unique_id=1524720099]
+script = ExtResource("1_yc135")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1612031712]
+libraries/ = SubResource("AnimationLibrary_t07ad")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1370968202]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.473145, 50.262207, -4.7421265)
+use_collision = true
+size = Vector3(31.05371, 5.475586, 40.515747)
+material = SubResource("StandardMaterial3D_uryv4")
+
+[node name="Sketchfab_Scene" parent="." unique_id=283325189 instance=ExtResource("2_yc135")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2075095, 53.95211, -3.719575)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=505477048]
+environment = SubResource("Environment_o5fid")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=751896061]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=478851578]
+transform = Transform3D(-0.979045, -0.015253383, 0.2030722, 0, 0.99719083, 0.0749021, -0.20364426, 0.07333252, -0.97629476, -3.1288662, 53.90695, -5.9352636)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=80135515]
+stream = ExtResource("4_dk74m")
+
+[node name="Control" type="Control" parent="." unique_id=310433350]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control" unique_id=739989137]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -508.0
+offset_top = -18.5
+offset_right = -211.0
+offset_bottom = 66.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "- Lord Banana -"
+label_settings = SubResource("LabelSettings_5fgk8")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=240651465]
+
+[node name="animal-cat2" parent="." unique_id=1337952437 instance=ExtResource("7_k0iki")]
+transform = Transform3D(0.86704403, 0, 0.49823147, 0, 1, 0, -0.49823147, 0, 0.86704403, -10.841457, 53, -4.2750173)
+
+[node name="animal-chick2" parent="." unique_id=979414978 instance=ExtResource("8_t07ad")]
+transform = Transform3D(0.86704403, 0, 0.49823147, 0, 1, 0, -0.49823147, 0, 0.86704403, -11.648531, 53, -1.9535775)
+
+[node name="animal-cat3" parent="." unique_id=205161434 instance=ExtResource("7_k0iki")]
+transform = Transform3D(0.86704403, 0, 0.49823147, 0, 1, 0, -0.49823147, 0, 0.86704403, -10.621744, 53, -6.668434)
+
+[node name="animal-caterpillar2" parent="." unique_id=462120050 instance=ExtResource("9_uryv4")]
+transform = Transform3D(0.86704403, 0, 0.49823147, 0, 1, 0, -0.49823147, 0, 0.86704403, -6.8595924, 53, -4.463186)
+
+[node name="animal-bee2" parent="." unique_id=1736654983 instance=ExtResource("10_ifv8r")]
+transform = Transform3D(0.86704403, 0, 0.49823147, 0, 1, 0, -0.49823147, 0, 0.86704403, -8.871632, 53, -3.0830932)
+
+[node name="animal-cow2" parent="." unique_id=1169250166 instance=ExtResource("11_o5fid")]
+transform = Transform3D(0.86704403, 0, 0.49823147, 0, 1, 0, -0.49823147, 0, 0.86704403, -8.312231, 53, -6.4774795)
+
+[node name="Sketchfab_Scene2" parent="." unique_id=1659413276 instance=ExtResource("12_t07ad")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.583582, 53.19766, 4.9699564)

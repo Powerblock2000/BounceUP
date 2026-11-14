@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bw8xqqdx5w8sf"]
+
+[ext_resource type="PackedScene" uid="uid://bnvf25uc2i1eu" path="res://enemy/bouncy_enemy.tscn" id="1_7vnfv"]
+[ext_resource type="PackedScene" uid="uid://buuyhwksyfvg4" path="res://assets/banana_lord/scene.gltf" id="2_hiumk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kpndw"]
+radius = 1.0709361
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7vnfv"]
+
+[node name="BossEnemy" unique_id=1565795649 node_paths=PackedStringArray("collision_shape") instance=ExtResource("1_7vnfv")]
+collision_shape = NodePath("CollisionShape3D")
+intensity = 40.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BounceArea" parent_id_path=PackedInt32Array(667585683) index="0" unique_id=1237568164]
+shape = SubResource("SphereShape3D_kpndw")
+debug_color = Color(0.9250697, 0.2634153, 0.1979622, 0.41960785)
+
+[node name="Mesh" type="Node3D" parent="." index="1" unique_id=1989050701]
+
+[node name="Sketchfab_Scene" parent="Mesh" index="0" unique_id=283325189 instance=ExtResource("2_hiumk")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2" unique_id=28745225]
+shape = SubResource("CapsuleShape3D_7vnfv")

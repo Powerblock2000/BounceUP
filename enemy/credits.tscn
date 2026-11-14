@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://8kde8hg8vrmy"]
+
+[ext_resource type="Script" uid="uid://bxfyswhif6kr" path="res://credits/credits.gd" id="1_fonms"]
+[ext_resource type="AudioStream" uid="uid://c6aclcb005d37" path="res://assets/music/boss credits.mp3" id="2_lc2tp"]
+[ext_resource type="FontFile" uid="uid://4oibaljodd13" path="res://assets/fonts/jim_nightshade/JimNightshade-Regular.ttf" id="3_lc2tp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fonms"]
+font = ExtResource("3_lc2tp")
+font_size = 92
+
+[node name="Credits" type="Control" unique_id=1917562167]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fonms")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1274793674]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=635061958]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "A game Programed by [b]Ramsey Smith[/b]; Music composed by [b]Micah Bentley[/b]; \"Space Gun\" (https://skfb.ly/6w97U) by [b]nomercy.rms[/b] is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/); \"Banana Lord – Final Form\" (https://skfb.ly/pMTGF) by [b]Sam Naot[/b] is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/); Some music modified from [b]Pixabay[/b]; Assets from [b]Kenney.nl[/b]"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2120622670]
+stream = ExtResource("2_lc2tp")
+
+[node name="Time" type="Label" parent="." unique_id=1754258881]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -216.5
+offset_top = -132.0
+offset_right = 216.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Your time was: "
+label_settings = SubResource("LabelSettings_fonms")
+
+[node name="Button" type="Button" parent="." unique_id=793700637]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 158.0
+grow_vertical = 0
+disabled = true
+text = "Back to main menu"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

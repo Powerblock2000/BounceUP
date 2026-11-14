@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://b3pismn73ki68"]
+
+[ext_resource type="PackedScene" uid="uid://b4aw26kgeyd2l" path="res://addons/pbplayer/PlayerBase/3D_Base.tscn" id="1_2orxn"]
+[ext_resource type="Script" uid="uid://bw451gg48budl" path="res://addons/pbplayer/Components/PBMovement/pb_movement.gd" id="2_monf5"]
+[ext_resource type="Script" uid="uid://du4vc13su0m4w" path="res://character/death_logic.gd" id="3_dkowc"]
+[ext_resource type="FontFile" uid="uid://b28i17db4venp" path="res://assets/fonts/henny_penny/HennyPenny-Regular.ttf" id="3_qe16m"]
+[ext_resource type="Script" uid="uid://bseni81hgec0f" path="res://addons/pbui/Classes/pb_button.gd" id="4_dkowc"]
+[ext_resource type="Script" uid="uid://c3ymibw1n63v" path="res://character/weapon_logic.gd" id="4_tpic6"]
+[ext_resource type="Script" uid="uid://cjmxpwwnttea1" path="res://addons/pbui/Classes/ui_component.gd" id="5_pw6nv"]
+[ext_resource type="Resource" uid="uid://chmsrcrua2t8t" path="res://main_menu/pre_made_components/new_resource.tres" id="6_tpic6"]
+[ext_resource type="PackedScene" uid="uid://bf4tqh02oyvs7" path="res://assets/space_gun/scene.gltf" id="8_pw6nv"]
+[ext_resource type="Script" uid="uid://bur6dvp6gnica" path="res://character/timer_label.gd" id="10_b6pse"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_monf5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vwrqk"]
+font = ExtResource("3_qe16m")
+font_size = 77
+font_color = Color(1, 0.25882354, 0.18431373, 1)
+outline_size = 11
+
+[sub_resource type="Animation" id="Animation_b6pse"]
+resource_name = "Lose"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.03333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(76, 0, 0, 0.16666667, 218.32578, 200, -0.23333335, 75.487366, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Play:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(428.5, 0, 0, 0.16666667, -20, 308.5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_i6sb3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Label:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(415.5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(255, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Play:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(308.5, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hn1kw"]
+_data = {
+&"Lose": SubResource("Animation_b6pse"),
+&"RESET": SubResource("Animation_i6sb3")
+}
+
+[node name="Player3D" unique_id=374208359 instance=ExtResource("1_2orxn")]
+
+[node name="PBMovementComponent" type="Node" parent="Components" parent_id_path=PackedInt32Array(1532718520) index="0" unique_id=857443406 node_paths=PackedStringArray("mesh_node", "camera_node", "pivot_node")]
+script = ExtResource("2_monf5")
+smoothly_rotate_model = false
+headbob_effect = true
+mesh_node = NodePath("../../Node3D")
+camera_node = NodePath("../../Camera3D")
+pivot_node = NodePath("../../Camera3D")
+metadata/_custom_type_script = "uid://bw451gg48budl"
+
+[node name="DeathLogic" type="Node" parent="Logic" parent_id_path=PackedInt32Array(1578073110) index="0" unique_id=701579724]
+script = ExtResource("3_dkowc")
+
+[node name="WeaponLogic" type="Node" parent="Logic" parent_id_path=PackedInt32Array(1578073110) index="1" unique_id=657249709]
+script = ExtResource("4_tpic6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2" unique_id=690035511]
+shape = SubResource("CapsuleShape3D_monf5")
+
+[node name="Camera3D" type="Camera3D" parent="." index="3" unique_id=540186275]
+fov = 100.0
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D" index="0" unique_id=1430034936]
+target_position = Vector3(0, 0, -100)
+
+[node name="Node3D" type="Node3D" parent="." index="4" unique_id=806619862]
+
+[node name="Lose" type="Control" parent="." index="5" unique_id=1464088661]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Lose" index="0" unique_id=176485100]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="Lose" index="1" unique_id=960330786]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.5
+offset_top = -69.0
+offset_right = 160.5
+offset_bottom = 69.00018
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+text = "You Lose"
+label_settings = SubResource("LabelSettings_vwrqk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Lose" index="2" unique_id=102370081]
+libraries/ = SubResource("AnimationLibrary_hn1kw")
+
+[node name="Play" type="Button" parent="Lose" index="3" unique_id=656741257]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -15.5
+offset_right = 25.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+offset_transform_enabled = true
+text = "Retry"
+script = ExtResource("4_dkowc")
+ui_components = Array[ExtResource("5_pw6nv")]([ExtResource("6_tpic6")])
+metadata/_custom_type_script = "uid://bseni81hgec0f"
+
+[node name="Hands" type="Node3D" parent="." index="6" unique_id=1659977751]
+
+[node name="SpaceGun" parent="Hands" index="0" unique_id=1659413276 instance=ExtResource("8_pw6nv")]
+unique_name_in_owner = true
+transform = Transform3D(-0.10352762, 0, -0.38637033, 0, 0.4, 0, 0.38637033, 0, -0.10352762, 0.2086061, -0.100737214, -0.19261068)
+visible = false
+
+[node name="Time" type="Control" parent="." index="7" unique_id=1530840268]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Time" index="0" unique_id=626840500]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Your time: "
+script = ExtResource("10_b6pse")

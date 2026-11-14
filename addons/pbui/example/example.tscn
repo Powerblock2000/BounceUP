@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://belw8tnf8hs45"]
+
+[ext_resource type="Script" uid="uid://bseni81hgec0f" path="res://addons/pbui/Classes/pb_button.gd" id="1_nexls"]
+[ext_resource type="Script" uid="uid://cjmxpwwnttea1" path="res://addons/pbui/Classes/ui_component.gd" id="2_8x37d"]
+[ext_resource type="Script" uid="uid://mtq3tawwuipv" path="res://addons/pbui/components/scale_component.gd" id="3_fqvbw"]
+[ext_resource type="Script" uid="uid://bhupd0ududhmw" path="res://addons/pbui/Classes/signal_tigger.gd" id="3_xei3i"]
+
+[sub_resource type="Resource" id="Resource_xei3i"]
+script = ExtResource("3_xei3i")
+signal_name = &"mouse_entered"
+metadata/_custom_type_script = "uid://bhupd0ududhmw"
+
+[sub_resource type="Resource" id="Resource_fqvbw"]
+script = ExtResource("3_xei3i")
+signal_name = &"mouse_exited"
+metadata/_custom_type_script = "uid://bhupd0ududhmw"
+
+[sub_resource type="Resource" id="Resource_8x37d"]
+script = ExtResource("3_fqvbw")
+signal_tiggers = Array[ExtResource("3_xei3i")]([SubResource("Resource_xei3i"), SubResource("Resource_fqvbw")])
+metadata/_custom_type_script = "uid://mtq3tawwuipv"
+
+[node name="Example" type="Control" unique_id=1697719019]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FancyButton" type="Button" parent="." unique_id=151126934]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.5
+offset_top = -15.5
+offset_right = 106.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "This button is SUPER fancy"
+script = ExtResource("1_nexls")
+ui_components = Array[ExtResource("2_8x37d")]([SubResource("Resource_8x37d")])
+metadata/_custom_type_script = "uid://bseni81hgec0f"

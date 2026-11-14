@@ -1,0 +1,11 @@
+Model Information:
+* title:	Space Gun
+* source:	https://sketchfab.com/3d-models/space-gun-9eb795979f94409da80489eb140df188
+* author:	nomercy.rms (https://sketchfab.com/nomercy.rms)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Space Gun" (https://sketchfab.com/3d-models/space-gun-9eb795979f94409da80489eb140df188) by nomercy.rms (https://sketchfab.com/nomercy.rms) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

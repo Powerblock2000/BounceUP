@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dt2psio014blo"]
+
+[ext_resource type="Script" uid="uid://b0wyg0dqi6dcr" path="res://main_menu/main_menu.gd" id="1_6tl50"]
+[ext_resource type="Texture2D" uid="uid://ck7xbo0nonbnw" path="res://inkscape/BouceUP.svg" id="1_bws42"]
+[ext_resource type="Script" uid="uid://bseni81hgec0f" path="res://addons/pbui/Classes/pb_button.gd" id="2_3f7m4"]
+[ext_resource type="Script" uid="uid://cjmxpwwnttea1" path="res://addons/pbui/Classes/ui_component.gd" id="3_6tl50"]
+[ext_resource type="Resource" uid="uid://chmsrcrua2t8t" path="res://main_menu/pre_made_components/new_resource.tres" id="4_t6bnd"]
+[ext_resource type="AudioStream" uid="uid://dqi3bk3kffs1d" path="res://assets/music/Main_Game.mp3" id="5_3f7m4"]
+
+[sub_resource type="Theme" id="Theme_3f7m4"]
+
+[sub_resource type="Gradient" id="Gradient_bws42"]
+colors = PackedColorArray(0.81960785, 0.65882355, 0.627451, 1, 0.16078432, 0.3882353, 0.6392157, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3f7m4"]
+gradient = SubResource("Gradient_bws42")
+fill_to = Vector2(1, 1)
+
+[node name="MainMenu" type="Control" unique_id=2115803304]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_3f7m4")
+script = ExtResource("1_6tl50")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=405608131]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_3f7m4")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1332649231]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1016366720]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=1469306850]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer/MarginContainer" unique_id=2093175449]
+layout_mode = 2
+texture = ExtResource("1_bws42")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer" unique_id=42314483]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1706811119]
+layout_mode = 2
+offset_transform_enabled = true
+text = "Play"
+script = ExtResource("2_3f7m4")
+ui_components = Array[ExtResource("3_6tl50")]([ExtResource("4_t6bnd")])
+metadata/_custom_type_script = "uid://bseni81hgec0f"
+
+[node name="Exit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1323940142]
+layout_mode = 2
+offset_transform_enabled = true
+text = "Leave"
+script = ExtResource("2_3f7m4")
+ui_components = Array[ExtResource("3_6tl50")]([ExtResource("4_t6bnd")])
+metadata/_custom_type_script = "uid://bseni81hgec0f"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=659848042]
+stream = ExtResource("5_3f7m4")
+autoplay = true
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_play"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Exit" to="." method="_leave"]

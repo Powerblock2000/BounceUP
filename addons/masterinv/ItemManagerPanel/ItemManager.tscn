@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cuof01dmsmcqm"]
+
+[ext_resource type="Script" uid="uid://bl6ppl4mx7217" path="res://addons/masterinv/ItemManagerPanel/item_manager.gd" id="1_66q3q"]
+[ext_resource type="Texture2D" uid="uid://dscr7xkojdv5t" path="res://addons/masterinv/ItemManagerPanel/ToolAddNode.svg" id="1_vyvbr"]
+[ext_resource type="Texture2D" uid="uid://qbiwchl83rlx" path="res://addons/masterinv/ItemManagerPanel/Search.svg" id="2_66q3q"]
+[ext_resource type="Texture2D" uid="uid://ky1163gw6u7b" path="res://addons/masterinv/ItemManagerPanel/Save.svg" id="3_6atg4"]
+
+[node name="ItemManager" type="VBoxContainer" unique_id=1653846945]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_66q3q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=557678236]
+layout_mode = 2
+
+[node name="NewItem" type="Button" parent="HBoxContainer" unique_id=1860596069]
+custom_minimum_size = Vector2(106, 0)
+layout_mode = 2
+text = "New Item"
+icon = ExtResource("1_vyvbr")
+expand_icon = true
+
+[node name="SearchItem" type="LineEdit" parent="HBoxContainer" unique_id=437908383]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search Item"
+right_icon = ExtResource("2_66q3q")
+icon_expand_mode = 1
+
+[node name="Save" type="Button" parent="HBoxContainer" unique_id=452634112]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+disabled = true
+text = "Saved"
+icon = ExtResource("3_6atg4")
+expand_icon = true
+
+[node name="Error" type="RichTextLabel" parent="." unique_id=1966391926]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[img=0x24]res://addons/masterinv/ItemManagerPanel/StatusError.svg[color=ff5f5f] Error: "
+fit_content = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=510872592]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemGrid" type="GridContainer" parent="ScrollContainer" unique_id=296620229]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 13
+
+[connection signal="text_changed" from="HBoxContainer/SearchItem" to="." method="_on_search_item_text_changed"]

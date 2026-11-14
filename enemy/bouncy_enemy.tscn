@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bnvf25uc2i1eu"]
+
+[ext_resource type="Script" uid="uid://c40yw1ccmktf5" path="res://enemy/bouncy_enemy.gd" id="1_2byue"]
+
+[node name="BouncyEnemy" type="CharacterBody3D" unique_id=1565795649]
+script = ExtResource("1_2byue")
+
+[node name="BounceArea" type="Area3D" parent="." unique_id=667585683]

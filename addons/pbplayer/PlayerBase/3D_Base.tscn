@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b4aw26kgeyd2l"]
+
+[ext_resource type="Script" uid="uid://dael11b53vl01" path="res://addons/pbplayer/PlayerBase/Player3D.gd" id="1_pg4qw"]
+[ext_resource type="Script" uid="uid://b5m1gmi2p11nt" path="res://addons/pbplayer/PlayerBase/components_manager.gd" id="2_wgn5m"]
+
+[node name="Player3D" type="CharacterBody3D" unique_id=374208359]
+script = ExtResource("1_pg4qw")
+
+[node name="Components" type="Node" parent="." unique_id=1532718520]
+unique_name_in_owner = true
+script = ExtResource("2_wgn5m")
+metadata/_custom_type_script = "uid://b5m1gmi2p11nt"
+
+[node name="Logic" type="Node" parent="." unique_id=1578073110]

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bf88gov5dmfge"]
+
+[ext_resource type="Script" uid="uid://bleoi2d248v2q" path="res://addons/pbui/Classes/item_display.gd" id="1_yhskf"]
+
+[node name="RuntimeItemDisplay" type="PanelContainer" unique_id=1453393954]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_yhskf")
+item_id = 0
+metadata/_custom_type_script = "uid://bleoi2d248v2q"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=221459871]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=1163109410]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
