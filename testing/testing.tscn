@@ -23,6 +23,7 @@ sky_material = SubResource("PanoramaSkyMaterial_uns7a")
 [sub_resource type="Environment" id="Environment_uns7a"]
 background_mode = 2
 sky = SubResource("Sky_x2m0a")
+tonemap_mode = 4
 ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true

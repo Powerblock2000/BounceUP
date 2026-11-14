@@ -201,6 +201,7 @@ sky_material = SubResource("PanoramaSkyMaterial_ifv8r")
 [sub_resource type="Environment" id="Environment_o5fid"]
 background_mode = 2
 sky = SubResource("Sky_oo1xa")
+tonemap_mode = 4
 ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
@@ -236,7 +237,7 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=478851578]
-transform = Transform3D(-0.979045, -0.015253383, 0.2030722, 0, 0.99719083, 0.0749021, -0.20364426, 0.07333252, -0.97629476, -3.1288662, 53.90695, -5.9352636)
+transform = Transform3D(-0.979045, -0.015253382, 0.2030722, 0, 0.9971908, 0.0749021, -0.20364426, 0.07333252, -0.97629476, -3.1288662, 53.90695, -5.9352636)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=80135515]
 stream = ExtResource("4_dk74m")
