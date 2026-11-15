@@ -15,8 +15,9 @@ func start_credits(time : float) -> void:
 	$AudioStreamPlayer.play()
 	var tw : Tween = create_tween()
 	tw.tween_property($RichTextLabel, "visible_ratio", 1, time)
-	await tw.finished
-	await get_tree().create_timer(1).timeout
+	if not IntersceneSaveManager.skip_cutscenes:
+		await tw.finished
+		await get_tree().create_timer(1).timeout
 	time_l.text = "Your time was: %s" % format_time(IntersceneSaveManager.time)
 	button.disabled = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

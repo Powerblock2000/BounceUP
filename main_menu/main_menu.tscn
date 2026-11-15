@@ -72,6 +72,14 @@ script = ExtResource("2_3f7m4")
 ui_components = Array[ExtResource("3_6tl50")]([ExtResource("4_t6bnd")])
 metadata/_custom_type_script = "uid://bseni81hgec0f"
 
+[node name="Settings" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1429995475]
+layout_mode = 2
+offset_transform_enabled = true
+text = "Settings"
+script = ExtResource("2_3f7m4")
+ui_components = Array[ExtResource("3_6tl50")]([ExtResource("4_t6bnd")])
+metadata/_custom_type_script = "uid://bseni81hgec0f"
+
 [node name="Exit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1323940142]
 layout_mode = 2
 offset_transform_enabled = true
@@ -84,5 +92,91 @@ metadata/_custom_type_script = "uid://bseni81hgec0f"
 stream = ExtResource("5_3f7m4")
 autoplay = true
 
+[node name="Settings" type="CenterContainer" parent="." unique_id=989327782]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Settings" unique_id=884918931]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/PanelContainer" unique_id=892186249]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="Settings/PanelContainer/MarginContainer" unique_id=823068492]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+current_tab = 1
+
+[node name="Audio" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/TabContainer" unique_id=1572328916]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="HSeparator" type="HSeparator" parent="Settings/PanelContainer/MarginContainer/TabContainer/Audio" unique_id=1535078037]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/PanelContainer/MarginContainer/TabContainer/Audio" unique_id=1821887603]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="Volume" type="HSlider" parent="Settings/PanelContainer/MarginContainer/TabContainer/Audio" unique_id=1590827975]
+layout_mode = 2
+value = 100.0
+
+[node name="Graphics" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/TabContainer" unique_id=1160042797]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="HSeparator" type="HSeparator" parent="Settings/PanelContainer/MarginContainer/TabContainer/Graphics" unique_id=802314451]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/PanelContainer/MarginContainer/TabContainer/Graphics" unique_id=858739075]
+layout_mode = 2
+text = "Window mode"
+
+[node name="OptionButton" type="OptionButton" parent="Settings/PanelContainer/MarginContainer/TabContainer/Graphics" unique_id=540093932]
+layout_mode = 2
+selected = 1
+item_count = 2
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+
+[node name="Cutscenes" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/TabContainer" unique_id=1120060142]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="HSeparator" type="HSeparator" parent="Settings/PanelContainer/MarginContainer/TabContainer/Cutscenes" unique_id=1542916567]
+layout_mode = 2
+
+[node name="SkipCutscenes" type="CheckBox" parent="Settings/PanelContainer/MarginContainer/TabContainer/Cutscenes" unique_id=1213775127]
+layout_mode = 2
+text = "Skip all cutscenes"
+
+[node name="Control" type="Control" parent="Settings/PanelContainer" unique_id=2132940317]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Close" type="Button" parent="Settings/PanelContainer/Control" unique_id=1388291346]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -18.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "X"
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_play"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Exit" to="." method="_leave"]
+[connection signal="drag_ended" from="Settings/PanelContainer/MarginContainer/TabContainer/Audio/Volume" to="." method="_on_volume_drag_ended"]
+[connection signal="item_selected" from="Settings/PanelContainer/MarginContainer/TabContainer/Graphics/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="toggled" from="Settings/PanelContainer/MarginContainer/TabContainer/Cutscenes/SkipCutscenes" to="." method="_on_skip_cutscenes_toggled"]
+[connection signal="pressed" from="Settings/PanelContainer/Control/Close" to="." method="_on_close_pressed"]
