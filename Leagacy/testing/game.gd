@@ -23,7 +23,9 @@ func _ready() -> void:
 	if IntersceneSaveManager.has_gun:
 		enable_cutscene = false
 	
-	setup_player.call_deferred()
+	
+	if player_3d:
+		setup_player.call_deferred()
 	#pass
 
 func _on_death_zone_body_entered(body: Node3D) -> void:
@@ -31,6 +33,8 @@ func _on_death_zone_body_entered(body: Node3D) -> void:
 		for c in body.get_logic().get_children():
 			if c.name == "DeathLogic":
 				c.kill_player()
+		for e in get_tree().get_nodes_in_group("TestingEnemies"):
+			e.reset_pos()
 
 func _on_cut_scene_zone_body_entered(body: Node3D) -> void:
 	if body is Player3D and enable_cutscene:
@@ -39,11 +43,11 @@ func _on_cut_scene_zone_body_entered(body: Node3D) -> void:
 		for c in player_3d.get_logic().get_children():
 			if c.name == "DeathLogic":
 				IntersceneSaveManager.time = c.timer.time_elapsed
-		get_tree().change_scene_to_file("res://enemy/boss_cutscene.tscn")
+		get_tree().change_scene_to_file.call_deferred("res://enemy/boss_cutscene.tscn")
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Player3D:
 		for c in player_3d.get_logic().get_children():
 			if c.name == "DeathLogic":
 				IntersceneSaveManager.time = c.timer.time_elapsed
-		get_tree().change_scene_to_file("res://enemy/credits.tscn")
+		get_tree().change_scene_to_file.call_deferred("res://enemy/credits.tscn")

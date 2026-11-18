@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dryucu2fyoqmf" path="res://assets/proto_textures/PNG/Dark/texture_04.png" id="1_eape4"]
 [ext_resource type="Script" uid="uid://d03ukshde2ejv" path="res://testing/game.gd" id="1_ejoc4"]
-[ext_resource type="Texture2D" uid="uid://bf4uvo63wmatx" path="res://assets/skyboxes/Skyboxes/skybox-space-band.png" id="1_oo1xa"]
 [ext_resource type="PackedScene" uid="uid://b3pismn73ki68" path="res://character/player.tscn" id="1_sgbpx"]
+[ext_resource type="Texture2D" uid="uid://ci3qv0ci7sanc" path="res://assets/skyboxes/Skyboxes/skybox-space-galaxy.png" id="2_cwvu3"]
 [ext_resource type="Texture2D" uid="uid://mb8ikit1c6hq" path="res://assets/proto_textures/PNG/Green/texture_04.png" id="4_akd04"]
 [ext_resource type="PackedScene" uid="uid://w8d0yxkpyuq" path="res://enemy/pet_enemy.tscn" id="4_uns7a"]
 [ext_resource type="PackedScene" uid="uid://bw8xqqdx5w8sf" path="res://enemy/boss_enemy.tscn" id="7_x2m0a"]
@@ -15,7 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://dkt715wrxry0a" path="res://assets/proto_textures/PNG/Light/texture_04.png" id="13_cwvu3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_uns7a"]
-panorama = ExtResource("1_oo1xa")
+panorama = ExtResource("2_cwvu3")
+energy_multiplier = 1.5
 
 [sub_resource type="Sky" id="Sky_x2m0a"]
 sky_material = SubResource("PanoramaSkyMaterial_uns7a")
@@ -40,13 +41,13 @@ uv1_triplanar = true
 size = Vector3(31.054, 0.1, 40.516)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_akd04"]
-size = Vector3(31.054, 10, 40.516)
+size = Vector3(31.054, 2, 40.516)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uns7a"]
 size = Vector3(1000, 1, 1000)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4lyp1"]
-size = Vector3(50, 5, 50)
+size = Vector3(50, 2, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kwjtu"]
 albedo_texture = ExtResource("1_eape4")
@@ -57,7 +58,7 @@ albedo_texture = ExtResource("8_4lyp1")
 uv1_triplanar = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gqle7"]
-size = Vector3(10, 5.187378, 10)
+size = Vector3(10, 2, 10)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4lyp1"]
 albedo_texture = ExtResource("9_ln4n1")
@@ -78,13 +79,14 @@ uv1_triplanar = true
 size = Vector3(5, 1, 5)
 
 [node name="Game" type="Node3D" unique_id=382351289]
+process_mode = 1
 script = ExtResource("1_ejoc4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=996455247]
 environment = SubResource("Environment_uns7a")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1047040371]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.99137306, 0.1310703, 0, -0.1310703, 0.99137306, 0, 0, 0)
 shadow_enabled = true
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=152375690]
@@ -103,7 +105,7 @@ debug_color = Color(0.9975118, 0, 0.1742886, 0.41960785)
 [node name="BossZone" type="Area3D" parent="CSGBox3D2" unique_id=195434956]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D2/BossZone" unique_id=859339548]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.738, 0)
 shape = SubResource("BoxShape3D_akd04")
 debug_color = Color(0.9975118, 0, 0.1742886, 0.41960785)
 
@@ -117,23 +119,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
 shape = SubResource("BoxShape3D_uns7a")
 debug_color = Color(0.87789756, 0.34194067, 0, 0.41960785)
 
-[node name="BossEnemy" parent="." unique_id=1531081032 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("7_x2m0a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4781265, 53.95211, 1.7543201)
+[node name="BossEnemy" parent="." unique_id=1531081032 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("7_x2m0a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.029612, 53.95211, 8.840377)
 player_node = NodePath("../Player3D")
-player_enter_area = NodePath("../CSGBox3D2/BossZone")
+follow_area = NodePath("../CSGBox3D2/BossZone")
 
 [node name="L1" type="Node3D" parent="." unique_id=2107822521]
 
 [node name="Area3D" type="Area3D" parent="L1" unique_id=295163011]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="L1/Area3D" unique_id=3981852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_4lyp1")
 
-[node name="PetEnemy" parent="L1" unique_id=1565795649 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("4_uns7a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.888, 0, 0)
+[node name="PetEnemy" parent="L1" unique_id=1565795649 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("4_uns7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.888, 0.85000014, 0.08166051)
 player_node = NodePath("../../Player3D")
 speed = 2.5
-player_enter_area = NodePath("../Area3D")
+follow_area = NodePath("../Area3D")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="L1" unique_id=1942656619]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)
@@ -145,7 +148,7 @@ material = SubResource("StandardMaterial3D_kwjtu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 32.885803, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="L2" unique_id=1340039184]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.230082, -21.797401, 0.5557432)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.23, -21, 0.556)
 use_collision = true
 size = Vector3(10, 2, 10)
 material = SubResource("StandardMaterial3D_x2m0a")
@@ -153,7 +156,7 @@ material = SubResource("StandardMaterial3D_x2m0a")
 [node name="Area3D" type="Area3D" parent="L2/CSGBox3D" unique_id=417220175]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="L2/CSGBox3D/Area3D" unique_id=116008707]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.093689, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("BoxShape3D_gqle7")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="L2" unique_id=1148224767]
@@ -162,10 +165,10 @@ light_color = Color(1, 1, 0.7137255, 1)
 light_energy = 2.493
 omni_range = 10.8193
 
-[node name="PetEnemy" parent="L2" unique_id=228053856 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("4_uns7a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.280893, -20.047401, -0.5478182)
+[node name="PetEnemy" parent="L2" unique_id=228053856 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("4_uns7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.280893, -19.15, -0.5478182)
 player_node = NodePath("../../Player3D")
-player_enter_area = NodePath("../CSGBox3D/Area3D")
+follow_area = NodePath("../CSGBox3D/Area3D")
 
 [node name="L3" type="Node3D" parent="." unique_id=1352100023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87343, 26.095768, 1.4351282)
@@ -180,10 +183,10 @@ material = SubResource("StandardMaterial3D_4lyp1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("BoxShape3D_ln4n1")
 
-[node name="PetEnemy" parent="L3/CSGBox3D/Area3D" unique_id=2116124742 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("4_uns7a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25314045, 1.6911373, 0.12012935)
+[node name="PetEnemy" parent="L3/CSGBox3D/Area3D" unique_id=2116124742 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("4_uns7a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005173683, 1.7818699, 0.04621458)
 player_node = NodePath("../../../../Player3D")
-player_enter_area = NodePath("..")
+follow_area = NodePath("..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="L3" unique_id=1248708017]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8371258, 0)
@@ -198,18 +201,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 41.27603, 0)
 use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Stairs/CSGCombiner3D" unique_id=779469993]
-transform = Transform3D(-0.48335615, 0.2790658, 0.8297525, 0.5, 0.8660254, 2.1855694e-08, -0.71858674, 0.41487625, -0.55813164, -24.23124, 2.4567375, -1.8320758)
+transform = Transform3D(-0.48335615, 0.2790658, 0.8297525, 0.5, 0.8660254, 2.1855694e-08, -0.71858674, 0.41487625, -0.55813164, -26.680336, 2.4567375, 0.115759134)
 size = Vector3(30.302246, 1.2744141, 3)
 material = SubResource("StandardMaterial3D_ln4n1")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Stairs/CSGCombiner3D" unique_id=1378345266]
-transform = Transform3D(-0.5577451, 0, 0.83001226, 0, 1, 0, -0.83001226, 0, -0.5577451, -28.423923, 10.820091, -15.482751)
-size = Vector3(2.2143672, 1.2744141, 10.933594)
+transform = Transform3D(-0.5649669, -0.13553216, 0.8139062, 3.3527613e-08, 0.9864172, 0.16425882, -0.8251134, 0.09280082, -0.55729306, -29.736404, 10.998888, -14.441068)
+size = Vector3(2.2143672, 1.2744141, 13.245605)
 material = SubResource("StandardMaterial3D_ln4n1")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGCombiner3D" unique_id=1887431165]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.037939, -4.682968, 8.195593)
-size = Vector3(5, 1, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.798681, -4.682968, 8.195593)
+size = Vector3(8.521484, 1, 5)
 material = SubResource("StandardMaterial3D_ln4n1")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Stairs" unique_id=860467698]
@@ -218,41 +221,43 @@ light_color = Color(1, 1, 0.7137255, 1)
 light_energy = 2.493
 omni_range = 10.8193
 
-[node name="PetEnemy" parent="." unique_id=162973365 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("4_uns7a")]
+[node name="PetEnemy" parent="." unique_id=162973365 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("4_uns7a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.720553, 53.75, 7.526691)
 player_node = NodePath("../Player3D")
-player_enter_area = NodePath("../CSGBox3D2/BossZone")
+follow_area = NodePath("../CSGBox3D2/BossZone")
 
-[node name="PetEnemy2" parent="." unique_id=2109105404 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("4_uns7a")]
+[node name="PetEnemy2" parent="." unique_id=2109105404 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("4_uns7a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.472436, 53.75, 4.663129)
 player_node = NodePath("../Player3D")
-player_enter_area = NodePath("../CSGBox3D2/BossZone")
+follow_area = NodePath("../CSGBox3D2/BossZone")
 
-[node name="PetEnemy3" parent="." unique_id=1336938233 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("4_uns7a")]
+[node name="PetEnemy3" parent="." unique_id=1336938233 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("4_uns7a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.346477, 53.75, 5.7899647)
 player_node = NodePath("../Player3D")
-player_enter_area = NodePath("../CSGBox3D2/BossZone")
+follow_area = NodePath("../CSGBox3D2/BossZone")
 
-[node name="PetEnemy4" parent="." unique_id=1491685911 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("4_uns7a")]
+[node name="PetEnemy4" parent="." unique_id=1491685911 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("4_uns7a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.836717, 53.75, 3.3322377)
 player_node = NodePath("../Player3D")
-player_enter_area = NodePath("../CSGBox3D2/BossZone")
+follow_area = NodePath("../CSGBox3D2/BossZone")
 
-[node name="PetEnemy5" parent="." unique_id=811273065 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("4_uns7a")]
+[node name="PetEnemy5" parent="." unique_id=811273065 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("4_uns7a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.409882, 53.75, 6.473762)
 player_node = NodePath("../Player3D")
-player_enter_area = NodePath("../CSGBox3D2/BossZone")
+follow_area = NodePath("../CSGBox3D2/BossZone")
 
-[node name="PetEnemy6" parent="." unique_id=1849397650 node_paths=PackedStringArray("player_node", "player_enter_area") instance=ExtResource("4_uns7a")]
+[node name="PetEnemy6" parent="." unique_id=1849397650 node_paths=PackedStringArray("player_node", "follow_area") groups=["TestingEnemies"] instance=ExtResource("4_uns7a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.489082, 53.75, 3.3522625)
 player_node = NodePath("../Player3D")
-player_enter_area = NodePath("../CSGBox3D2/BossZone")
+follow_area = NodePath("../CSGBox3D2/BossZone")
 
-[node name="BossAudio" type="AudioStreamPlayer" parent="." unique_id=831116649]
+[node name="BossAudio" type="AudioStreamPlayer" parent="." unique_id=831116649 groups=["major_audio"]]
 stream = ExtResource("11_f00xb")
+volume_db = -20.0
 
-[node name="LevelAudio" type="AudioStreamPlayer" parent="." unique_id=901463308]
+[node name="LevelAudio" type="AudioStreamPlayer" parent="." unique_id=901463308 groups=["minor_audio"]]
 stream = ExtResource("12_cwvu3")
+volume_db = -20.0
 
 [node name="Goal" type="CSGBox3D" parent="." unique_id=149880247]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 91.918304, 0)

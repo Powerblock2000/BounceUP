@@ -8,9 +8,9 @@ radius = 1.0709361
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7vnfv"]
 
-[node name="BossEnemy" unique_id=1565795649 node_paths=PackedStringArray("collision_shape") instance=ExtResource("1_7vnfv")]
-collision_shape = NodePath("CollisionShape3D")
+[node name="BossEnemy" unique_id=1565795649 node_paths=PackedStringArray("mesh") instance=ExtResource("1_7vnfv")]
 intensity = 40.0
+mesh = NodePath("Mesh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BounceArea" parent_id_path=PackedInt32Array(667585683) index="0" unique_id=1237568164]
 shape = SubResource("SphereShape3D_kpndw")

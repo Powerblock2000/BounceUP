@@ -70,10 +70,34 @@ var _headbobing : bool = false
 @export var air_accel := 800.0
 @export var air_move_speed := 500.0
 
+@export_group("Audio Settings")
+@export_file_path() var audio_file_base : String
+@export var audio_file_min : int = 0
+@export var audio_file_max : int = 4
+@export var audio_interval : float = .25
+
 var _wish_dir := Vector3.ZERO
+var _play_sounds : bool = false:
+	set(value):
+		var original_play_sounds : bool = _play_sounds
+		
+		_play_sounds = value
+		if value == true and original_play_sounds == false: handle_sounds()
 
 ## Project gravity is multiplied by this.
 var gravity_intensity : float = 1.0
+
+@onready var audio_player : AudioStreamPlayer = AudioStreamPlayer.new()
+
+func handle_sounds() -> void:
+	while _play_sounds:
+		print("playing sounds")
+		var sound_path : String = audio_file_base % randi_range(audio_file_min, audio_file_max)
+		audio_player.stream = load(sound_path)
+		audio_player.volume_db = -20
+		audio_player.play()
+		
+		await get_tree().create_timer(audio_interval).timeout
 
 func trigger_modifier(modifier: MovementModifier) -> void:
 	modifier.trigger(self)
@@ -97,17 +121,16 @@ func _set_up() -> void:
 		PBFuncs.debug_print("please add the movement modifier", true, PBFuncs.PrintTypes.error, "Player")
 		return
 	
+	add_child(audio_player)
+	
 	PBFuncs.debug_print("Set up", true, PBFuncs.PrintTypes.info, "Player")
+	
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func get_move_speed() -> float:
 	return walk_speed
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton: # TODO Remove for UI
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) # TODO Remove for UI
-	elif event.is_action_pressed("ui_cancel"): # TODO Remove for UI
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) # TODO Remove for UI
-	
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			player_node.rotate_y(-event.relative.x * mouse_look_sensitivity)
@@ -194,6 +217,9 @@ func _handle_air_physics(delta) -> void:
 		else:
 			player_node.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 		clip_velocity(player_node.get_wall_normal(), 1, delta) # Allows surf
+	
+	
+	_play_sounds = false
 
 func _handle_ground_physics(delta) -> void:
 	# Similar to the air movement. Acceleration and friction on ground.
@@ -212,9 +238,13 @@ func _handle_ground_physics(delta) -> void:
 		new_speed /= player_node.velocity.length()
 	player_node.velocity *= new_speed
 	
+	if player_node.velocity != Vector3.ZERO:
+		_play_sounds = true
+	else:
+		_play_sounds = false
+	
 	# Make Model look
 	
-	#var dir : Vector3 = Vector3(player_node.velocity.x, 0, 0)
 	#if dir.length_squared() > 0.01 and smoothly_rotate_model:
 	#	var target_angle : float = atan2(-dir.x, -dir.z)
 	#	

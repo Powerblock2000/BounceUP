@@ -3,18 +3,87 @@
 [ext_resource type="Script" uid="uid://b0wyg0dqi6dcr" path="res://main_menu/main_menu.gd" id="1_6tl50"]
 [ext_resource type="Texture2D" uid="uid://ck7xbo0nonbnw" path="res://inkscape/BouceUP.svg" id="1_bws42"]
 [ext_resource type="Script" uid="uid://bseni81hgec0f" path="res://addons/pbui/Classes/pb_button.gd" id="2_3f7m4"]
+[ext_resource type="Texture2D" uid="uid://ct240g8fcw83m" path="res://main_menu/game_main_menu_bg.png" id="2_og6xe"]
 [ext_resource type="Script" uid="uid://cjmxpwwnttea1" path="res://addons/pbui/Classes/ui_component.gd" id="3_6tl50"]
-[ext_resource type="Resource" uid="uid://chmsrcrua2t8t" path="res://main_menu/pre_made_components/new_resource.tres" id="4_t6bnd"]
+[ext_resource type="Theme" uid="uid://c4lnbqsdtij6k" path="res://main_menu/MainTheme.tres" id="3_mvfl2"]
 [ext_resource type="AudioStream" uid="uid://dqi3bk3kffs1d" path="res://assets/music/Main_Game.mp3" id="5_3f7m4"]
+[ext_resource type="Resource" uid="uid://chmsrcrua2t8t" path="res://main_menu/pre_made_components/scale_component.tres" id="5_t6bnd"]
+[ext_resource type="Resource" uid="uid://crvesx81n5ipd" path="res://main_menu/pre_made_components/sound_component.tres" id="6_ia84y"]
+[ext_resource type="Resource" uid="uid://dmi4dck4ed4vb" path="res://main_menu/pre_made_components/sound_mouse_pressed.tres" id="7_ia84y"]
+[ext_resource type="Script" uid="uid://4bfoxxjq84ty" path="res://main_menu/loading_status.gd" id="9_6at21"]
 
-[sub_resource type="Theme" id="Theme_3f7m4"]
+[sub_resource type="Shader" id="Shader_og6xe"]
+code = "shader_type canvas_item;
 
-[sub_resource type="Gradient" id="Gradient_bws42"]
-colors = PackedColorArray(0.81960785, 0.65882355, 0.627451, 1, 0.16078432, 0.3882353, 0.6392157, 1)
+group_uniforms arrows;
+/** Arrow amount in the circle */
+uniform float arrows_amount: hint_range(1.0, 16.0, 1.0) = 1.0;
+/** Screw of the arrow */
+uniform float screw_facor: hint_range(-8.0, 8.0, 1e-3) = 0.0;
+/** Revolutions per second */
+uniform float rotation_frequency: hint_range(-32.0, 32.0, 1e-3) = 1.0;
+/** Half angular width of the arrow, in radians */
+uniform float angle_half_width: hint_range(0.0, 3.142, 1e-3) = 0.24;
+/** Angular edge smoothing, in radians */
+uniform float angle_softness: hint_range(0.0, 6.284, 1e-3) = 0.02;
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3f7m4"]
-gradient = SubResource("Gradient_bws42")
-fill_to = Vector2(1, 1)
+group_uniforms borders;
+/** Inner radius of the visible ring, normalized [0–1] */
+uniform float inner_radius: hint_range(0.0, 1.0, 1e-3) = 0.2;
+/** Outer radius of the visible ring, normalized [0–1] */
+uniform float outer_radius: hint_range(0.0, 1.0, 1e-3) = 0.9;
+/** Radial edge smoothing amount */
+uniform float radius_softness: hint_range(0.0, 1.0, 1e-3) = 0.02;
+
+/** Background color of the ring */
+uniform vec4 base_color : source_color = vec4(0.2, 0.6, 0.7, 1.0);
+/** Color of the rotating arrow */
+uniform vec4 line_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+void fragment() {
+	vec2 uv = UV * 2.0 - 1.0;
+	float r2 = dot(uv, uv);
+	
+	if (r2 > 1.0) {
+		discard;
+	}
+	
+	float r = sqrt(r2);
+	float angle = atan(uv.y, uv.x) * arrows_amount;
+	float target = PI - mod(TIME * TAU * rotation_frequency * arrows_amount, TAU);
+	
+	float screw = r * screw_facor;
+	float d = abs(mod(angle - target + screw * PI, TAU) - PI);
+	
+	float angular =
+		1.0 - smoothstep(
+			arrows_amount * angle_half_width,
+			arrows_amount * angle_half_width + angle_softness * arrows_amount,
+			d
+		);
+
+	float radial =
+		smoothstep(inner_radius, inner_radius + radius_softness, r) *
+		(1.0 - smoothstep(outer_radius, outer_radius + radius_softness, r));
+	
+	float mask = angular * radial;
+	
+	COLOR = mix(base_color, line_color, mask);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6at21"]
+shader = SubResource("Shader_og6xe")
+shader_parameter/arrows_amount = 2.0
+shader_parameter/screw_facor = 0.0
+shader_parameter/rotation_frequency = 1.0
+shader_parameter/angle_half_width = 0.6410000304475
+shader_parameter/angle_softness = 0.02
+shader_parameter/inner_radius = 0.70000003325
+shader_parameter/outer_radius = 0.9
+shader_parameter/radius_softness = 0.02
+shader_parameter/base_color = Color(1, 1, 1, 0)
+shader_parameter/line_color = Color(1, 1, 1, 1)
 
 [node name="MainMenu" type="Control" unique_id=2115803304]
 layout_mode = 3
@@ -23,7 +92,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_3f7m4")
 script = ExtResource("1_6tl50")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=405608131]
@@ -33,21 +101,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_3f7m4")
+texture = ExtResource("2_og6xe")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1332649231]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_mvfl2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1016366720]
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=397913708]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1016366720]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/VBoxContainer" unique_id=1469306850]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=1469306850]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 theme_override_constants/margin_left = 20
@@ -55,44 +131,46 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer/MarginContainer" unique_id=2093175449]
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer" unique_id=2093175449]
 layout_mode = 2
 texture = ExtResource("1_bws42")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer" unique_id=42314483]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=42314483]
 layout_mode = 2
 
-[node name="Play" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1706811119]
+[node name="Play_f" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=208903504]
 layout_mode = 2
 offset_transform_enabled = true
 text = "Play"
 script = ExtResource("2_3f7m4")
-ui_components = Array[ExtResource("3_6tl50")]([ExtResource("4_t6bnd")])
+ui_components = Array[ExtResource("3_6tl50")]([ExtResource("5_t6bnd"), ExtResource("6_ia84y"), ExtResource("7_ia84y")])
 metadata/_custom_type_script = "uid://bseni81hgec0f"
 
-[node name="Settings" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1429995475]
+[node name="Settings_f" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=2048739237]
 layout_mode = 2
 offset_transform_enabled = true
 text = "Settings"
 script = ExtResource("2_3f7m4")
-ui_components = Array[ExtResource("3_6tl50")]([ExtResource("4_t6bnd")])
+ui_components = Array[ExtResource("3_6tl50")]([ExtResource("5_t6bnd"), ExtResource("6_ia84y"), ExtResource("7_ia84y")])
 metadata/_custom_type_script = "uid://bseni81hgec0f"
 
-[node name="Exit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1323940142]
+[node name="Exit_f" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer" unique_id=959000940]
 layout_mode = 2
 offset_transform_enabled = true
 text = "Leave"
 script = ExtResource("2_3f7m4")
-ui_components = Array[ExtResource("3_6tl50")]([ExtResource("4_t6bnd")])
+ui_components = Array[ExtResource("3_6tl50")]([ExtResource("5_t6bnd"), ExtResource("6_ia84y"), ExtResource("7_ia84y")])
 metadata/_custom_type_script = "uid://bseni81hgec0f"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=659848042]
 stream = ExtResource("5_3f7m4")
+volume_db = -20.0
 autoplay = true
 
 [node name="Settings" type="CenterContainer" parent="." unique_id=989327782]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,7 +187,7 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="Settings/PanelContainer/MarginContainer" unique_id=823068492]
 custom_minimum_size = Vector2(500, 300)
 layout_mode = 2
-current_tab = 1
+current_tab = 2
 
 [node name="Audio" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/TabContainer" unique_id=1572328916]
 visible = false
@@ -125,9 +203,11 @@ text = "Music Volume"
 
 [node name="Volume" type="HSlider" parent="Settings/PanelContainer/MarginContainer/TabContainer/Audio" unique_id=1590827975]
 layout_mode = 2
-value = 100.0
+min_value = -80.0
+max_value = 17.0
 
 [node name="Graphics" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/TabContainer" unique_id=1160042797]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -148,7 +228,6 @@ popup/item_1/text = "Fullscreen"
 popup/item_1/id = 1
 
 [node name="Cutscenes" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/TabContainer" unique_id=1120060142]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -173,9 +252,42 @@ offset_bottom = 31.0
 grow_horizontal = 0
 text = "X"
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_play"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Exit" to="." method="_leave"]
+[node name="Loading" type="ColorRect" parent="." unique_id=2056784974]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.32156864)
+
+[node name="ColorRect" type="ColorRect" parent="Loading" unique_id=587808800]
+material = SubResource("ShaderMaterial_6at21")
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Status" type="Label" parent="Loading" unique_id=324195847]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("9_6at21")
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/Play_f" to="." method="_play"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/Settings_f" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/Exit_f" to="." method="_leave"]
 [connection signal="drag_ended" from="Settings/PanelContainer/MarginContainer/TabContainer/Audio/Volume" to="." method="_on_volume_drag_ended"]
 [connection signal="item_selected" from="Settings/PanelContainer/MarginContainer/TabContainer/Graphics/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="toggled" from="Settings/PanelContainer/MarginContainer/TabContainer/Cutscenes/SkipCutscenes" to="." method="_on_skip_cutscenes_toggled"]

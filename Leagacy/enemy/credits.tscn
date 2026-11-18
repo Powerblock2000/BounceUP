@@ -39,6 +39,7 @@ text = "A game Programed by [b]Ramsey Smith[/b]; Music composed by [b]Micah Bent
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2120622670]
 stream = ExtResource("2_lc2tp")
+volume_db = -10.0
 
 [node name="Time" type="Label" parent="." unique_id=1754258881]
 layout_mode = 1

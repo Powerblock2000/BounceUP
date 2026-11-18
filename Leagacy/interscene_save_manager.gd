@@ -7,9 +7,7 @@ var volume : float = 100.0:
 		
 		volume = value
 		
-		print(slider_to_db(volume))
-		
-		AudioServer.set_bus_volume_db(_bus_index, slider_to_db(volume))
+		AudioServer.set_bus_volume_db(_bus_index, volume)
 
 var _bus_index : int
 

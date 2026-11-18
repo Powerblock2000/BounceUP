@@ -6,10 +6,17 @@
 [ext_resource type="FontFile" uid="uid://b28i17db4venp" path="res://assets/fonts/henny_penny/HennyPenny-Regular.ttf" id="3_qe16m"]
 [ext_resource type="Script" uid="uid://bseni81hgec0f" path="res://addons/pbui/Classes/pb_button.gd" id="4_dkowc"]
 [ext_resource type="Script" uid="uid://c3ymibw1n63v" path="res://character/weapon_logic.gd" id="4_tpic6"]
+[ext_resource type="Script" uid="uid://y31wobxjbj6u" path="res://character/ui_logic.gd" id="5_hn1kw"]
 [ext_resource type="Script" uid="uid://cjmxpwwnttea1" path="res://addons/pbui/Classes/ui_component.gd" id="5_pw6nv"]
-[ext_resource type="Resource" uid="uid://chmsrcrua2t8t" path="res://main_menu/pre_made_components/new_resource.tres" id="6_tpic6"]
+[ext_resource type="Resource" uid="uid://chmsrcrua2t8t" path="res://main_menu/pre_made_components/scale_component.tres" id="6_tpic6"]
 [ext_resource type="PackedScene" uid="uid://bf4tqh02oyvs7" path="res://assets/space_gun/scene.gltf" id="8_pw6nv"]
 [ext_resource type="Script" uid="uid://bur6dvp6gnica" path="res://character/timer_label.gd" id="10_b6pse"]
+[ext_resource type="Theme" uid="uid://c4lnbqsdtij6k" path="res://main_menu/MainTheme.tres" id="11_i6sb3"]
+[ext_resource type="Script" uid="uid://mtq3tawwuipv" path="res://addons/pbui/components/scale_component.gd" id="13_a1kp2"]
+[ext_resource type="Script" uid="uid://bhupd0ududhmw" path="res://addons/pbui/Classes/signal_tigger.gd" id="14_aw5rd"]
+[ext_resource type="AudioStream" uid="uid://d0rff4wp1jg3s" path="res://assets/kenney_ui-audio/Audio/click3.ogg" id="15_t461u"]
+[ext_resource type="Script" uid="uid://cibyrjcptrxj1" path="res://addons/pbui/components/audio_play_on_hover.gd" id="16_gh4hd"]
+[ext_resource type="AudioStream" uid="uid://bspiggjjxjehg" path="res://assets/kenney_ui-audio/Audio/switch2.ogg" id="17_yr573"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_monf5"]
 
@@ -134,6 +141,46 @@ _data = {
 &"RESET": SubResource("Animation_i6sb3")
 }
 
+[sub_resource type="Resource" id="Resource_ynykn"]
+script = ExtResource("14_aw5rd")
+signal_name = &"mouse_entered"
+metadata/_custom_type_script = "uid://bhupd0ududhmw"
+
+[sub_resource type="Resource" id="Resource_007hi"]
+script = ExtResource("14_aw5rd")
+signal_name = &"mouse_exited"
+metadata/_custom_type_script = "uid://bhupd0ududhmw"
+
+[sub_resource type="Resource" id="Resource_u2y57"]
+script = ExtResource("13_a1kp2")
+tween_process_mode = 2
+signal_tiggers = Array[ExtResource("14_aw5rd")]([SubResource("Resource_ynykn"), SubResource("Resource_007hi")])
+metadata/_custom_type_script = "uid://mtq3tawwuipv"
+
+[sub_resource type="Resource" id="Resource_bws42"]
+script = ExtResource("14_aw5rd")
+signal_name = &"mouse_entered"
+metadata/_custom_type_script = "uid://bhupd0ududhmw"
+
+[sub_resource type="Resource" id="Resource_tr32s"]
+script = ExtResource("16_gh4hd")
+audio_file = ExtResource("15_t461u")
+volume = -20.0
+signal_tiggers = Array[ExtResource("14_aw5rd")]([SubResource("Resource_bws42")])
+metadata/_custom_type_script = "uid://cibyrjcptrxj1"
+
+[sub_resource type="Resource" id="Resource_78uhr"]
+script = ExtResource("14_aw5rd")
+signal_name = &"pressed"
+metadata/_custom_type_script = "uid://bhupd0ududhmw"
+
+[sub_resource type="Resource" id="Resource_fn6jh"]
+script = ExtResource("16_gh4hd")
+audio_file = ExtResource("17_yr573")
+volume = -20.0
+signal_tiggers = Array[ExtResource("14_aw5rd")]([SubResource("Resource_78uhr")])
+metadata/_custom_type_script = "uid://cibyrjcptrxj1"
+
 [node name="Player3D" unique_id=374208359 instance=ExtResource("1_2orxn")]
 
 [node name="PBMovementComponent" type="Node" parent="Components" parent_id_path=PackedInt32Array(1532718520) index="0" unique_id=857443406 node_paths=PackedStringArray("mesh_node", "camera_node", "pivot_node")]
@@ -143,6 +190,7 @@ headbob_effect = true
 mesh_node = NodePath("../../Node3D")
 camera_node = NodePath("../../Camera3D")
 pivot_node = NodePath("../../Camera3D")
+audio_file_base = "res://assets/kenney_impact-sounds/Audio/footstep_carpet_00%s.ogg"
 metadata/_custom_type_script = "uid://bw451gg48budl"
 
 [node name="DeathLogic" type="Node" parent="Logic" parent_id_path=PackedInt32Array(1578073110) index="0" unique_id=701579724]
@@ -151,10 +199,14 @@ script = ExtResource("3_dkowc")
 [node name="WeaponLogic" type="Node" parent="Logic" parent_id_path=PackedInt32Array(1578073110) index="1" unique_id=657249709]
 script = ExtResource("4_tpic6")
 
+[node name="UiLogic" type="Node" parent="Logic" parent_id_path=PackedInt32Array(1578073110) index="2" unique_id=1159360867]
+script = ExtResource("5_hn1kw")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2" unique_id=690035511]
 shape = SubResource("CapsuleShape3D_monf5")
 
 [node name="Camera3D" type="Camera3D" parent="." index="3" unique_id=540186275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 fov = 100.0
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D" index="0" unique_id=1430034936]
@@ -242,3 +294,55 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "Your time: "
 script = ExtResource("10_b6pse")
+
+[node name="InGameUi" type="CenterContainer" parent="." index="8" unique_id=264480696]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_i6sb3")
+
+[node name="PanelContainer" type="PanelContainer" parent="InGameUi" index="0" unique_id=908712764]
+process_mode = 3
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameUi/PanelContainer" index="0" unique_id=1262696488]
+process_mode = 3
+custom_minimum_size = Vector2(400, 1000)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Resume" type="Button" parent="InGameUi/PanelContainer/VBoxContainer" index="0" unique_id=1316928455]
+process_mode = 3
+layout_mode = 2
+offset_transform_enabled = true
+text = "Resume"
+script = ExtResource("4_dkowc")
+ui_components = Array[ExtResource("5_pw6nv")]([SubResource("Resource_u2y57"), SubResource("Resource_tr32s"), SubResource("Resource_fn6jh")])
+metadata/_custom_type_script = "uid://bseni81hgec0f"
+
+[node name="Reset" type="Button" parent="InGameUi/PanelContainer/VBoxContainer" index="1" unique_id=1452642342]
+process_mode = 3
+layout_mode = 2
+offset_transform_enabled = true
+text = "Reset"
+script = ExtResource("4_dkowc")
+ui_components = Array[ExtResource("5_pw6nv")]([SubResource("Resource_u2y57"), SubResource("Resource_tr32s"), SubResource("Resource_fn6jh")])
+metadata/_custom_type_script = "uid://bseni81hgec0f"
+
+[node name="MainMenu" type="Button" parent="InGameUi/PanelContainer/VBoxContainer" index="2" unique_id=60995223]
+process_mode = 3
+layout_mode = 2
+offset_transform_enabled = true
+text = "Back to Main Menu"
+script = ExtResource("4_dkowc")
+ui_components = Array[ExtResource("5_pw6nv")]([SubResource("Resource_u2y57"), SubResource("Resource_tr32s"), SubResource("Resource_fn6jh")])
+metadata/_custom_type_script = "uid://bseni81hgec0f"
+
+[connection signal="pressed" from="InGameUi/PanelContainer/VBoxContainer/Resume" to="Logic/UiLogic" method="_on_resume_pressed"]
+[connection signal="pressed" from="InGameUi/PanelContainer/VBoxContainer/Reset" to="Logic/UiLogic" method="_on_reset_pressed"]
+[connection signal="pressed" from="InGameUi/PanelContainer/VBoxContainer/MainMenu" to="Logic/UiLogic" method="_on_main_menu_pressed"]

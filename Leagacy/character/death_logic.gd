@@ -4,6 +4,11 @@ extends Node
 @onready var play: FancyButton = $"../../Lose/Play"
 @onready var player_3d: Player3D = $"../.."
 @onready var timer: Label = $"../../Time/Label"
+@onready var lose: Control = $"../../Lose"
+@onready var camera_3d: Camera3D = $"../../Camera3D"
+
+@onready var player_original_transform : Transform3D = player_3d.transform
+@onready var camera_original_transform : Transform3D = camera_3d.transform
 
 func kill_player() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -12,8 +17,13 @@ func kill_player() -> void:
 	await animation_player.animation_finished
 	play.disabled = false
 	await play.pressed
-	player_3d.global_position = Vector3(0, 1, 0)
-	animation_player.play_backwards("Lose")
-	await animation_player.animation_finished
+	death_func()
+
+func death_func() -> void:
+	player_3d.global_position = player_original_transform.origin
+	player_3d.velocity = Vector3.ZERO
+	player_3d.rotation = player_original_transform.basis.get_euler()
+	camera_3d.rotation = camera_original_transform.basis.get_euler()
+	lose.hide()
 	timer.reset()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

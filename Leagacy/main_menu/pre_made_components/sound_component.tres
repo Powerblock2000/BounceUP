@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="AudioPlayOnHoverComponenet" format=3 uid="uid://crvesx81n5ipd"]
+
+[ext_resource type="Script" uid="uid://cibyrjcptrxj1" path="res://addons/pbui/components/audio_play_on_hover.gd" id="1_b8h7g"]
+[ext_resource type="AudioStream" uid="uid://d0rff4wp1jg3s" path="res://assets/kenney_ui-audio/Audio/click3.ogg" id="1_egww7"]
+[ext_resource type="Script" uid="uid://bhupd0ududhmw" path="res://addons/pbui/Classes/signal_tigger.gd" id="2_egww7"]
+
+[sub_resource type="Resource" id="Resource_bws42"]
+script = ExtResource("2_egww7")
+signal_name = &"mouse_entered"
+metadata/_custom_type_script = "uid://bhupd0ududhmw"
+
+[resource]
+script = ExtResource("1_b8h7g")
+audio_file = ExtResource("1_egww7")
+volume = -20.0
+signal_tiggers = Array[ExtResource("2_egww7")]([SubResource("Resource_bws42")])
+metadata/_custom_type_script = "uid://cibyrjcptrxj1"

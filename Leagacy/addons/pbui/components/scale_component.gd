@@ -4,6 +4,7 @@ extends FancyUIComponent
 @export var large_value : Vector2 = Vector2(1.1, 1.1)
 @export var small_value  : Vector2 = Vector2(1, 1)
 @export var time : float = .1
+@export var tween_process_mode : Tween.TweenPauseMode
 
 func _init() -> void:
 	trigger.connect(triggered)
@@ -27,6 +28,7 @@ var prefix : String = ""
 func scale_up(c_node : Control) -> void:
 	c_node.z_index = 5
 	var tween : Tween = c_node.create_tween()
+	tween.set_pause_mode(tween_process_mode)
 	tween.set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(c_node, "%sscale" % prefix, large_value, time)
 
